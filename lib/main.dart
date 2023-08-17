@@ -14,14 +14,33 @@ class MyApp extends StatelessWidget {
       MaterialApp(
           home: Scaffold(
             appBar: AppBar(),
-            body: Row(
-              children: [
-                Expanded(child: Container(color: Colors.blue)),
-                Flexible(flex: 7, child: Container(color: Colors.green)),
-                //비율에 따라 박스를 넣고 싶을 떄 사용 Column,Row에서 사용
-                //Expanded는 나머지 꽉 채우고 싶을 때 사용
-              ],
+            body: Container(
+              height: 150,
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  Image.asset('camera.jpg', width: 150,),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text('카메라팝니다', style: TextStyle(),),
+                        Text('금호동 3가'),
+                        Text('7000'),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Icon(Icons.favorite),
+                            Text('4'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
+
           )
       );
   }
