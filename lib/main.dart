@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 var a = SizedBox(
@@ -13,13 +13,22 @@ var a = SizedBox(
 
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  var a = 1;
 
   @override
   Widget build(BuildContext context) {
     return
       MaterialApp(
           home: Scaffold(
+            floatingActionButton: FloatingActionButton(
+              child: Text(a.toString()), // 재렌더링이 안됨 이대로면
+              onPressed: (){
+                print(a);
+                a++; // 함수 값
+              },
+            ),
             appBar: AppBar(),
             body: ListView.builder( //Listview 반복문
                 itemCount: 3, // 몇 번 반복 할 것인지
