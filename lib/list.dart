@@ -18,23 +18,23 @@ class DialogUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        child: Container(
-          width: 300,
-          height: 300,
-          child: Column(
+      child: Container(
+        width: 300,
+        height: 300,
+        child: Column(
           children: [
             TextField( onChanged: (text){inputData = text},),
-          // TextField(controller: inputData,),
+            // TextField(controller: inputData,),
             TextButton( child: Text('완료'), onPressed:(){
-            addOne();
-            Navigator.pop(context);
-          } ),
-          TextButton(
-          child: Text('취소'),
-          onPressed:(){ Navigator.pop(context); })
+              addOne();
+              Navigator.pop(context);
+            } ),
+            TextButton(
+                child: Text('취소'),
+                onPressed:(){ Navigator.pop(context); })
           ],
-          ),
         ),
+      ),
     );
   }
 }
@@ -67,27 +67,27 @@ class _MyAppState extends State<MyApp> {
   //사용하기
 
   @override
-   build(context) {
+  build(context) {
     //context란 부모위제가 누구인지 알려줌
     //지금은 Material이 부모
     return
-       Scaffold(
-              floatingActionButton: Builder(
-                builder: (newContext) { // 이것의 부모는 Material,scaffold
-                  return FloatingActionButton(
-                    onPressed: () {
-                      print(context.findAncestorWidgetOfExactType<MaterialApp>());
-                      showDialog(context: context, builder: (context){
-                        return DialogUI(addOne:addOne);
-                      });
-                    },
-                  );
-                }
-              ),
-              appBar: AppBar( title: Text(total.toString()),),
-              body: Container(),
-              // body: Dialog(child: Text('다이아로그'),),//이대로 치면 바로 나옴
-          );
+      Scaffold(
+        floatingActionButton: Builder(
+            builder: (newContext) { // 이것의 부모는 Material,scaffold
+              return FloatingActionButton(
+                onPressed: () {
+                  print(context.findAncestorWidgetOfExactType<MaterialApp>());
+                  showDialog(context: context, builder: (context){
+                    return DialogUI(addOne:addOne);
+                  });
+                },
+              );
+            }
+        ),
+        appBar: AppBar( title: Text(total.toString()),),
+        body: Container(),
+        // body: Dialog(child: Text('다이아로그'),),//이대로 치면 바로 나옴
+      );
 
   }
 }
