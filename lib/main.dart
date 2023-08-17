@@ -9,6 +9,32 @@ void main() {
 
 
 
+class DialogUI extends StatelessWidget {
+  const DialogUI({super.key, this.state});
+  final state; // 부모에서 온 state 등록 방법
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+        child: Container(
+          width: 300,
+          height: 300,
+          child: Column(
+          children: [
+          TextField(),
+          TextButton( child: Text(state.toString()), onPressed:(){} ),
+          TextButton(
+          child: Text('취소'),
+          onPressed:(){ Navigator.pop(context); })
+          ],
+          ),
+        ),
+    );
+  }
+}
+
+
+
 
 class MyApp extends StatefulWidget {
   MyApp({super.key});
@@ -18,6 +44,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+  var a = 1;
+  //부모(myapp에 있는 state 쓰는법)
+  //쓸 커스텀위젯에 props해주고
+  //커스텀 위젯에 등록해주고(this.state)
+  //사용하기
 
   @override
    build(context) {
@@ -31,21 +63,7 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () {
                       print(context.findAncestorWidgetOfExactType<MaterialApp>());
                       showDialog(context: context, builder: (context){
-                        return Dialog(
-                          child: Container(
-                            width: 300,
-                            height: 300,
-                            child: Column(
-                              children: [
-                                TextField(),
-                                TextButton( child: Text('완료'), onPressed:(){} ),
-                                TextButton(
-                                    child: Text('취소'),
-                                    onPressed:(){ Navigator.pop(context); })
-                              ],
-                            ),
-                          ),
-                        );
+                        return DialogUI(state:a);
                       });
                     },
                   );
