@@ -21,16 +21,26 @@ class MyApp extends StatelessWidget {
       MaterialApp(
           home: Scaffold(
             appBar: AppBar(),
-            body: ListView( //스크롤바 생김 , 메모리 절약 가능 (지나간 메모리 삭제)
-              controller: ScrollController(),//스크롤 위치 감시
-              children: const [
-                // ListTile(
-                //   leading: Image.asset('assets/profile.png'),
-                //   title: Text('홍길동'),
-                // )
-                // ListTile 사용법
-              ],
+            body: ListView.builder( //Listview 반복문
+                itemCount: 3, // 몇 번 반복 할 것인지
+                itemBuilder: (context,i){// 함수 입력 두가지 파라미터 꼭 입력 (context : , i: 반복할 때마다 +1씩 증가)
+                  print(i); // console 찍는 방법
+                  return ListTile(
+                          leading: Image.asset('assets/profile.png'),
+                          title: Text('홍길동'),
+                        ); // 반복 할 위젯
+                }
             ),
+          //   body: ListView( //스크롤바 생김 , 메모리 절약 가능 (지나간 메모리 삭제)
+          //     controller: ScrollController(),//스크롤 위치 감시
+          //     children: const [
+          //       // ListTile(
+          //       //   leading: Image.asset('assets/profile.png'),
+          //       //   title: Text('홍길동'),
+          //       // )
+          //       // ListTile 사용법
+          //     ],
+          //   ),
           )
       );
   }
