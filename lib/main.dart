@@ -12,11 +12,40 @@ var a = SizedBox(
 // 절대 변하지 않는 것들은 변수로도 사용 가능 (상당바, 하단바 등등)
 
 
-class MyApp extends StatelessWidget {
+// stfull + enter  state 함수 만드는법
+// class Test extends StatefulWidget {
+//   const Test({super.key});
+//
+//   @override
+//   State<Test> createState() => _TestState();
+// }
+//
+// class _TestState extends State<Test> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Placeholder();
+//   }
+// }
+
+
+
+class MyApp extends StatefulWidget {
   MyApp({super.key});
 
-  var a = 1;
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  //state 만드는 법
+  // 1. StatefulWiget 만들기
+  // 2. 둘째 class 안에 변수 만들기
+  // state 변경하려면 setState((){}) 사용
+  var a = 1; // 이게 state
+  var name = ['하이','하이2','하이3'];
+  var like = [0,0,0];
+
+  // 데이터를 잠깐 저장하는 곳 : 변수 아니면 state
   @override
   Widget build(BuildContext context) {
     return
@@ -25,18 +54,29 @@ class MyApp extends StatelessWidget {
             floatingActionButton: FloatingActionButton(
               child: Text(a.toString()), // 재렌더링이 안됨 이대로면
               onPressed: (){
-                print(a);
-                a++; // 함수 값
+                setState(() {
+                  a++;
+                });
+                // print(a);
+                // a++; // 함수 값
               },
             ),
-            appBar: AppBar(),
+            appBar: AppBar(title: Text('연락처앱'),),
             body: ListView.builder( //Listview 반복문
                 itemCount: 3, // 몇 번 반복 할 것인지
                 itemBuilder: (context,i){// 함수 입력 두가지 파라미터 꼭 입력 (context : , i: 반복할 때마다 +1씩 증가)
                   print(i); // console 찍는 방법
                   return ListTile(
-                          leading: Image.asset('assets/profile.png'),
-                          title: Text('홍길동'),
+                          leading: Text(like[i].toString()),
+                          title: Text(name[i]),
+                          trailing: TextButton(
+                            child: Text('좋아요'),
+                            onPressed: (){
+                              setState(() {
+                                like[i]++;
+                              });
+                            },
+                          ),
                         ); // 반복 할 위젯
                 }
             ),
