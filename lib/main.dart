@@ -10,8 +10,9 @@ void main() {
 
 
 class DialogUI extends StatelessWidget {
-  DialogUI({super.key, this.addOne});
+  DialogUI({super.key, this.addOne,this.addName});
   final addOne; // 부모에서 온 state 등록 방법
+  final addName;
   var inputData = TextEditingController();
   var inputData2 = {};
 
@@ -23,10 +24,11 @@ class DialogUI extends StatelessWidget {
           height: 300,
           child: Column(
           children: [
-            TextField( onChanged: (text){inputData = text},),
+            TextField( controller: inputData,),
           // TextField(controller: inputData,),
             TextButton( child: Text('완료'), onPressed:(){
             addOne();
+            addName(inputData.text);
             Navigator.pop(context);
           } ),
           TextButton(
@@ -54,6 +56,15 @@ class _MyAppState extends State<MyApp> {
   var total = 3;
   var a = 1;
   var name = ['김영숙','홍길동','피자집'];
+  var like = [0,0,0];
+
+  //부모state를 자식이 수정하려면 1.수정함수 만들기 2.자식에게보내기
+
+  addName(a){
+    setState(() { //setState 까먹지말기
+      name.add(a);
+    });
+  }
 
   addOne(){
     setState(() {
@@ -78,14 +89,23 @@ class _MyAppState extends State<MyApp> {
                     onPressed: () {
                       print(context.findAncestorWidgetOfExactType<MaterialApp>());
                       showDialog(context: context, builder: (context){
-                        return DialogUI(addOne:addOne);
+                        return DialogUI(addOne:addOne,addName: addName);
                       });
                     },
                   );
                 }
               ),
               appBar: AppBar( title: Text(total.toString()),),
-              body: Container(),
+               body: ListView.builder( //Listview 반복문
+                   itemCount: name.length, // 몇 번 반복 할 것인지
+                   itemBuilder: (c,i){// 함수 입력 두가지 파라미터 꼭 입력 (context : , i: 반복할 때마다 +1씩 증가)
+                     print(i); // console 찍는 방법
+                     return ListTile(
+                       leading: Text('프로필'),
+                       title: Text(name[i]),
+                     ); // 반복 할 위젯
+                   }
+               ),
               // body: Dialog(child: Text('다이아로그'),),//이대로 치면 바로 나옴
           );
 
